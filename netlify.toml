@@ -1,3 +1,34 @@
 [build]
   command = "npm run build"
   publish = "dist"
+
+[dev]
+  command = "npm run dev"
+  framework = "#custom"
+  port = 8888
+  targetPort = 3000
+  autoLaunch = true
+
+[[edge_functions]]
+  path = "/api/get-product-list"
+  function = "get-product-list"
+
+[[edge_functions]]
+  path = "/api/get-product"
+  function = "get-product"
+
+[[edge_functions]]
+  path = "/api/get-cart"
+  function = "get-cart"
+
+[[edge_functions]]
+  path = "/api/add-to-cart"
+  function = "add-to-cart"
+
+[[edge_functions]]
+  path = "/api/remove-from-cart"
+  function = "remove-from-cart"
+
+  
+
+  
