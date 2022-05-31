@@ -24,11 +24,12 @@ export default function Cart() {
       const res = new Response(response.body)
       console.log("res", res)
       const data = await res.json()
-      console.log("data", data)
-      window.localStorage.setItem('astroCartId', data.id);
+      const json = JSON.parse(data)
+      console.log("json", json)
+      window.localStorage.setItem('astroCartId', json.cart.id);
 
-      setProducts(response.cart.lines.edges);
-      setCost(response.cart.estimatedCost);
+      setProducts(json.cart.lines.edges);
+      setCost(json.cart.estimatedCost);
     }
 
     //let data;

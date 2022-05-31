@@ -71,7 +71,9 @@ export default async (request, context) => {
       itemId,
       quantity,
     })
-
+    console.log('--------------------------------')
+    console.log(JSON.stringify(createCartResponse.cartCreate.cart))
+    console.log('--------------------------------')
     return context.json(JSON.stringify(createCartResponse.cartCreate.cart));
   }
 }

@@ -84,7 +84,11 @@ export default function ProductPageContent({ product }) {
     const cartResponse = await fetch("/api/add-to-cart", options);
 
     const data = await cartResponse.json();
-    window.localStorage.setItem('astroCartId', data.id);
+    const json = JSON.parse(data)
+
+    console.log('--- Adding to cart JSON response ID ---', json.id);
+
+    window.localStorage.setItem('astroCartId', json.id);
 
     return data;
   };
