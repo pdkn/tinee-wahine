@@ -20,7 +20,11 @@
  import postToShopify from './utils/postToShopify.js';
 
  export default async (request, context) => {
-  const { cartId } = JSON.parse(request.body);
+
+  const res = new Response(request.body)
+  const json = await res.json()
+
+  const  cartId  = json.cartId;
 
   try {
     console.log("--------------------------------");

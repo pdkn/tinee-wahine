@@ -8,31 +8,37 @@ export default function Cart() {
   const [cost, setCost] = useState({});
   const [cartId, setCartId] = useState(null);
 
-  useEffect(() => {
+  useEffect( () => {
     const localCart = window.localStorage.getItem('astroCartId');
 
-    let data;
+    async function fetchData() {
+      const options = {
+        method: 'post',
+        body: JSON.stringify({
+          cartId: localCart,
+        }),
+        headers: { 'Content-Type': 'application/json' },
+      }
+
+      const response = await fetch("/api/get-cart", options);
+      const res = new Response(response.body)
+      console.log("res", res)
+      const data = await res.json()
+      console.log("data", data)
+      window.localStorage.setItem('astroCartId', data.id);
+
+      setProducts(response.cart.lines.edges);
+      setCost(response.cart.estimatedCost);
+    }
+
+    //let data;
 
     if (localCart === null) {
       setShowProducts(false);
     } else {
       setCartId(localCart);
-      data = fetch(
-        `${import.meta.env.NETLIFY_URL}/api/get-cart`,
-        {
-          method: 'post',
-          body: JSON.stringify({
-            cartId: localCart,
-          }),
-          headers: { 'Content-Type': 'application/json' },
-        }
-      )
-        .then((res) => res.json())
-        .then((response) => {
-          setProducts(response.cart.lines.edges);
-          setCost(response.cart.estimatedCost);
-          return response;
-        });
+      fetchData();
+      //return data;
     }
   }, []);
 

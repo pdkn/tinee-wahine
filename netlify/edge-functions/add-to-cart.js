@@ -40,11 +40,19 @@ import addItemToCart from './utils/addItemToCart.js';
 
 
 export default async (request, context) => {
-  console.log('request', request)
+  
+  const res = new Response(request.body)
+  const json = await res.json()
 
-  const { cartId, itemId, quantity } = JSON.parse(request.body)
+  const { cartId, itemId, quantity } = json
 
-  if (cartId) {
+  console.log('json', json)
+  // const cartId = body.get("cartId")
+  // const itemId  = body.get("itemId")
+  // const quantity = body.get("quantity")
+  
+
+  if (cartId && cartId !== "undefined") {
     console.log('--------------------------------')
     console.log('Adding item to existing cart...')
     console.log('--------------------------------')
@@ -64,6 +72,6 @@ export default async (request, context) => {
       quantity,
     })
 
-    return context.json(JSON.stringify(shopifyResponse.cartCreate.cart));
+    return context.json(JSON.stringify(createCartResponse.cartCreate.cart));
   }
 }

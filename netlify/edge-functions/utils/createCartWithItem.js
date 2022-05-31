@@ -2,6 +2,7 @@ import postToShopify from '../utils/postToShopify.js';
 
 // Creates a cart with a single item
 export default async ({ itemId, quantity }) => {
+  console.log('itemId', itemId)
   try {
     const response = await postToShopify({
       query: `
